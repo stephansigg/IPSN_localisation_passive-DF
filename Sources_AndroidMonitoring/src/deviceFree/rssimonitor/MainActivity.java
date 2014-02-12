@@ -1,11 +1,10 @@
 package deviceFree.rssimonitor;
 
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import eu.chainfire.libsuperuser.Shell;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -26,60 +25,71 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
+//	public void startSetup(View view){
+//		// sh /sdcard/setup.sh
+//	    Process p; 
+//	    try {   
+//	       // Preform su to get root privledges  
+//	       p = Runtime.getRuntime().exec("su");   
+//	       DataOutputStream os = new DataOutputStream(p.getOutputStream());   
+//	       os.writeBytes("sh /sdcard/setup.sh > /sdcard/setupOutput.txt\n");
+//	       os.flush();
+//	       os.close();
+//	       //os.writeBytes("sh /sdcard/setup.sh\n")
+//	       p.waitFor();
+//	    } catch (IOException e) {   
+//	       // TODO Code to run in input/output exception  
+//	        //toastMessage("not root");   
+//	    } catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	    
+//	    Process p2;
+//	    try{
+//	       p2 = Runtime.getRuntime().exec("su");
+//	       DataOutputStream os2 = new DataOutputStream(p2.getOutputStream());   
+//	       os2.writeBytes("tcpdump eth0 -w /sdcard/myTestOutput140207.cap\n");
+//	       os2.flush();
+//	       os2.close();
+//		} catch (IOException e) {   
+//	       // TODO Code to run in input/output exception  
+//	        //toastMessage("not root");   
+//	    }
+//	    
+//		Process pSetup;
+//		try {
+//			pSetup = Runtime.getRuntime().exec("sh /sdcard/setup.sh");
+//		}catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			}
+//		//BufferedReader in = new BufferedReader(new InputStreamReader(pSetup.getInputStream()));
+//	}
+	
 	public void startSetup(View view){
-		// sh /sdcard/setup.sh
-	    Process p;   
-	    try {   
-	       // Preform su to get root privledges  
-	       p = Runtime.getRuntime().exec("su");   
-	       DataOutputStream os = new DataOutputStream(p.getOutputStream());   
-	       //os.writeBytes("ls > /sdcard/myLs.txt\n");
-	       // Why can I write this ls function and also then write further commands with other output streams but not do this without the initial ls output stream?
-	       //os.flush();
-	       //DataOutputStream os2 = new DataOutputStream(p.getOutputStream());	
-	       //os2.writeBytes("sh /sdcard/setup.sh\n");
-	       //os2.writeBytes("tcpdump -w /sdcard/myTestOutput2.txt\n");
-	       //os2.flush();
-	       //p = Runtime.getRuntime().exec("su");
-	       //os.close();
-	       //DataOutputStream os = new DataOutputStream(p.getOutputStream());   
-	       os.writeBytes("cd /sdcard  && setup.sh && tcpdump eth0 -w myTestOutputNeu.txt\n");
-	       os.flush();
-	       // Attempt to write a file to a root-only   
-	       /** DataOutputStream os = new DataOutputStream(p.getOutputStream());   
-	       os.writeBytes("echo \"Do I have root?\" >/system/sd/temporary.txt\n");  
-	         
-	       // Close the terminal  
-	       os.writeBytes("exit\n");   
-	       os.flush();   
-	       try {   
-	          p.waitFor();   
-	               if (p.exitValue() != 255) {   
-	                  // TODO Code to run on success  
-	                  //toastMessage("root");  
-	               }   
-	               else {   
-	                   // TODO Code to run on unsuccessful  
-	                   //toastMessage("not root");      
-	               }   
-	       } catch (InterruptedException e) {   
-	          // TODO Code to run in interrupted exception  
-	          // toastMessage("not root");   
-	       }   **/
-	    } catch (IOException e) {   
-	       // TODO Code to run in input/output exception  
-	        //toastMessage("not root");   
-	    } 
-		
-		Process pSetup;
-		try {
-			pSetup = Runtime.getRuntime().exec("sh /sdcard/setup.sh");
-		}catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Thread th = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				ArrayList<String> liste = new ArrayList<String>();
+				liste.add("sh /sdcard/setup.sh > /sdcard/setupOutput.txt && tcpdump eth0 '-w /sdcard/myTestOutput140207.cap'");
+				liste.add("cd /sdcard/");
+				liste.add("mkdir neuerOrdner");
+				liste.add("sleep 10");
+				liste.add("tcpdump eth0 -w /sdcard/myTestOutput140207.cap");
+				liste.add("sh /sdcard/startTcpdump.sh");
+				liste.add("tcpdump -w /sdcard/myTestOutput140208.cap");
+				liste.add("ls > /sdcard/nochEinOutput.txt");
+				// sh /sdcard/setup.sh
+				Shell.SU.run(liste);
+//			       Shell.SU.run("sh /sdcard/setup.sh > /sdcard/setupOutput.txt\n");
+//			       Shell.SU.run("tcpdump eth0 -w /sdcard/myTestOutput140207.cap\n");				
 			}
-		//BufferedReader in = new BufferedReader(new InputStreamReader(pSetup.getInputStream()));
+		});
+		th.start();
 	}
+	
 	
 	public void startTcpdump(View view){
 		// sh /sdcard/setup.sh

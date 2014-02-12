@@ -1,0 +1,4 @@
+Idee: 
+
+Laptop with ad-hoc modus (access point) und Mobilgeräte würden immer kurz die cap files loggen und dann dies selbstständig auf das Filesystem des Mobilgerätes schreiben.
+
