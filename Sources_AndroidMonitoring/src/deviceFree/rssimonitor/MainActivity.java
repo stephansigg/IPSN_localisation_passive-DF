@@ -73,15 +73,19 @@ public class MainActivity extends Activity {
 			@Override
 			public void run() {
 				ArrayList<String> liste = new ArrayList<String>();
-				liste.add("sh /sdcard/setup.sh > /sdcard/setupOutput.txt && tcpdump eth0 '-w /sdcard/myTestOutput140207.cap'");
-				liste.add("cd /sdcard/");
-				liste.add("mkdir neuerOrdner");
+				liste.add("sh /sdcard/setup.sh");
+				//liste.add("cd /sdcard/");
+				//liste.add("mkdir neuerOrdner");
 				liste.add("sleep 10");
-				liste.add("tcpdump eth0 -w /sdcard/myTestOutput140207.cap");
-				liste.add("sh /sdcard/startTcpdump.sh");
+				//liste.add("tcpdump eth0 -w /sdcard/myTestOutput140207.cap");
+				//liste.add("sh /sdcard/startTcpdump.sh &");
 				liste.add("tcpdump -w /sdcard/myTestOutput140208.cap");
-				liste.add("ls > /sdcard/nochEinOutput.txt");
+				//liste.add("ls > /sdcard/nochEinOutput.txt");
+				liste.add("sleep 20");
+				//liste.add("mv /sdcard/myTestOutput140208 /sdcard/myTestOutput_sample");
+				//liste.add("tcpdump -w /sdcard/myTestOutput140209.cap");
 				// sh /sdcard/setup.sh
+				//liste.add("killall tcpdump");
 				Shell.SU.run(liste);
 //			       Shell.SU.run("sh /sdcard/setup.sh > /sdcard/setupOutput.txt\n");
 //			       Shell.SU.run("tcpdump eth0 -w /sdcard/myTestOutput140207.cap\n");				
