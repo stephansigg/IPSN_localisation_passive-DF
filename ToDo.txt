@@ -1,0 +1,6 @@
+-- repeatedly parse start tcpdump
+  -- This is already possible when I press setup phone once.
+  -- I always have moved away the already existing pcap file. 
+      -- Maybe this was a problem before?
+      -- Then, I should also delete the file always after sending.
+-- store/send this information somewhere.

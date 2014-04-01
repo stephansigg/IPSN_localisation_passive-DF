@@ -2,3 +2,29 @@ Idee:
 
 Laptop with ad-hoc modus (access point) und Mobilgeräte würden immer kurz die cap files loggen und dann dies selbstständig auf das Filesystem des Mobilgerätes schreiben.
 
+-> Will not work because the wifi interface is not capable of any data communication when in tcpdump monitor mode.
+
+----------------------------------
+
+Another idea might be to store the file at any webserver and log there via ssh/scp. Webserver could be accessed via GSM/UMTS:
+
+To call ssh from a script, all you need to do is set up ssh keys. There are a million how-tos on the web, but there's a page on the Cyanogen wiki that might be more suited to Android users. Once you set up keys, your general ssh command would look something like this: ssh -i /PATH/TO/KEY USER@IP
+
+You can put that in a script, run it, and you will be logged in to the remote machine.
+
+But here's what I think you're wanting to do. To only execute a command on a remote computer, just add it in single quotes: ssh -i /PATH/TO/KEY USER@IP 'command'
+
+That executes the command on the remote machine without logging you in. You can run commands with options, pipes, redirects etc, but it's sometimes better to keep them simple. Except for the delay, it looks the same as executing the command(s) locally and can be used the same.
+
+Locale Execute can be picky about what commands it will run. If it doesn't work, try putting it in a script and using Locale Execute to run the script.
+
+Also, I have had problems with the ssh binary that is on the phone and found that moving it from /system/xbin and creating a link at /system/xbin/ssh to the Better Terminal Emulator ssh binary is more reliable. The BTEP binary is in /data/data/com.magicandroidapps.bettertermpro/bin/ssh
+
+
+----------------------------------------
+-> Important question: Is it possible to use WiFi and UMTS at the same time via android? 
+    i.e. are there actually two interfaces for this?
+    
+    AND: If there are two interfaces, are they still operational with the modified firmware?
+    
+    
