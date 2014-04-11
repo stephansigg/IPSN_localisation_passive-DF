@@ -16,17 +16,17 @@ import cPickle
 from collections import deque
 import Orange.data
 import Orange.feature
-#try:
- 	#import pygtk
-  	#pygtk.require("2.0")
-#except:
-  	#pass
-#try:
-	#import gtk
-  	#import gtk.glade
-#except:
-	#sys.exit(1)
-#import GUI
+try:
+ 	import pygtk
+  	pygtk.require("2.0")
+except:
+  	pass
+try:
+	import gtk
+  	import gtk.glade
+except:
+	sys.exit(1)
+import GUI
 
 
 # main class
@@ -60,18 +60,17 @@ class Pos_Rec:
 	self.data_table=[]
 	
         self.closed=False
-	self.parsing=True
-	self.classifying=True
+	self.parsing=False
+	self.classifying=False
 	self.clss_count=dict(zip(self.clss_list,[0]*len(self.clss_list)))
 	self.w_size=30
 	self.window_head=0
 	self.window=deque()
 	self.window_filled=False
 	self.classifier=None
-	#self.GUI=GUI.GUI(self)
+	self.GUI=GUI.GUI(self)
 	self.class_val=""
-	self.file_name="pcap_file"
-	self.classifier_file="classifier"
+	
 
 
 
@@ -206,7 +205,7 @@ class Pos_Rec:
 			tale_clss=tale[i_c]
 			self.clss_count[tale_clss]-=1
 			curr_clss=self.get_max_clss(self.clss_count)
-			print("current class is "+curr_clss)
+			self.GUI.print_txt("current class is "+curr_clss,True)
 		else:
 			self.data_table[self.window_head]=head_new
 		self.window.append(head_new)
@@ -237,36 +236,20 @@ class Pos_Rec:
     # once started, it will loop until the GUI is closed
     # call the method for feature computation within this loop 
     def main(self):
-	f=open(self.classifier_file,'r')
-	data=cPickle.load(f)
-	self.classifier=data[0]
-	for e in data[1]:
-		if e not in self.clss_list:
-		      self.clss_list.append(e)
-	self.clss_count=dict(zip(self.clss_list,[0]*len(self.clss_list)))
-	clss=Orange.feature.Discrete("corner",values=self.clss_list)
-	self.domain_list.pop()
-	self.domain_list.append(clss)
-	self.domain=Orange.data.Domain(self.mask_entry(self.domain_list))
-
-	self.class_val=self.clss_list[0]
-	f.close()
-	print("classifier successfully loaded")
-	print("ready")
+	self.GUI.print_txt("ready...")
         while not self.closed:
-		#while (gtk.events_pending()):
-			#gtk.main_iteration()
-
+		while (gtk.events_pending()):
+			gtk.main_iteration()
             	
 		if self.parsing:
-			f=open('flag_'+self.file_name,'r')
+			f=open('flag_'+self.GUI.file_name,'r')
 			flag=f.readline()
 			#self.GUI.print_txt(flag)
 			if "new" in flag:
 				self.pcap_to_orange()
 				#self.parse_test()
 				f.close()
-				f=open('flag_'+self.file_name,'w')
+				f=open('flag_'+self.GUI.file_name,'w')
 				f.write("old\n")
 				f.close()
 				#self.rssi_mean(10)
@@ -288,7 +271,7 @@ class Pos_Rec:
 
 
     def pcap_to_orange(self):
-        data=Pcap_Parser.parse(self.file_name)
+        data=Pcap_Parser.parse(self.GUI.file_name)
         mac_list=data.keys()
         mac=mac_list[1]
     	features_dummy=[0]*(len(self.f_ind)-4)

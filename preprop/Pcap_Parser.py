@@ -15,11 +15,12 @@ VERBOSE = 1
 ### auxiliary functions ###
 
 def show_short(p, label):
-    if ( VERBOSE >= 1 ):
+  pass
+    #if ( VERBOSE >= 1 ):
         ## show
-        print p.num, p.timestamp, p.dot11.addr2, \
-              label, "[" + str(p.dot11.type) + ", " + str(p.dot11.subtype) + "]", \
-              p.get_rssi(), "dBm"
+        #print p.num, p.timestamp, p.dot11.addr2, \
+             # label, "[" + str(p.dot11.type) + ", " + str(p.dot11.subtype) + "]", \
+             # p.get_rssi(), "dBm"
           
           
 ################################################################
