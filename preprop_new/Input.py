@@ -17,14 +17,14 @@ def get_input():
 
 ## Session2
         # 2.1
-        session2_1 = Group("Session2_1")
-        session2_1.plot_base_dir = "/home/mario/Wifi/Recordings/Plots/session2"
-        session2_1.orange_file = "/home/mario/Wifi/Recordings/Orange/session2/data1.tab"
-        groups.append(session2_1)
+        session = Group("Session2_1")
+        session.plot_base_dir = "/home/mario/Wifi/Recordings/Plots/session2"
+        session.orange_file = "/home/mario/Wifi/Recordings/Orange/session2/data1.tab"
+        groups.append(session)
         
-        files.append( Input_Data("/home/mario/Wifi/Recordings/session2/empty1.pcap", "empty", session2_1) )
-        files.append( Input_Data("/home/mario/Wifi/Recordings/session2/reading1.pcap", "reading", session2_1) )
-        files.append( Input_Data("/home/mario/Wifi/Recordings/session2/typing1.pcap", "typing", session2_1) )
+        files.append( Input_Data("/home/mario/Wifi/Recordings/session2/empty1.pcap", "empty", session) )
+        files.append( Input_Data("/home/mario/Wifi/Recordings/session2/reading1.pcap", "reading", session) )
+        files.append( Input_Data("/home/mario/Wifi/Recordings/session2/typing1.pcap", "typing", session) )
 
 
         # 2.2
