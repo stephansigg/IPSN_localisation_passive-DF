@@ -71,8 +71,8 @@ def accuracy2(test_data, classifiers, classCount):
 ###selection = orange.MakeRandomIndices2(data, 0.5)
 ###train_data = data.select(selection, 0)
 ###test_data = data.select(selection, 1)
-filename_train = "../../src/tests/data.tab"
-filename_test = "../../src/tests/data.tab"
+filename_train = "../../src/tests/data_train.tab"
+filename_test = "../../src/tests/data_test.tab"
 train_data = orange.ExampleTable(filename_train)
 test_data = orange.ExampleTable(filename_test)
 #train_data = Orange.data.Table("WS70_Features_0.5-annotated_[directoryNamesIM]")
@@ -130,13 +130,16 @@ tree2.name = "tree2"
 knnLearner2.name = "knn2"
 #svm2.name = "svm2"
 
-learners = [bayes2, tree2, knnLearner2]
+
+learners = [bayes2,tree2,knnLearner2]
 
 results = orngTest.crossValidation(learners, train_data, folds=10)
 
 # output the results
 print "train_data:"
 print filename_train
+print "test data:"
+print filename_test
 print "k=="
 print knnLearner2.k
 print "Learner  CA     IS     Brier    AUC"
@@ -149,6 +152,10 @@ for i in range(len(learners)):
 ###cm = orngStat.computeConfusionMatrices(results,
    ###     classIndex=data.domain.classVar.values.index('democrat'))
 #cm = orngStat.computeConfusionMatrices(results,classIndex=-1)
+
+
+
+
 
 print
 cm = Orange.evaluation.scoring.confusion_matrices(results)[0]
@@ -168,7 +175,7 @@ print "\t" + "\t".join(classes)
 for className, classConfusions in zip(classes, cm):
     print ("%s" + ("\t%i" * len(classes))) % ((className,) + tuple(classConfusions))
 
-
+exit()
 ## loop over k:
 
 for i in range(11,21):

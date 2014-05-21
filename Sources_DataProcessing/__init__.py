@@ -219,7 +219,7 @@ if __name__ == "__main__":
 
     try:
         ## input files
-        files, groups = Input.get_input('../config.ini')
+        files, groups = Input.get_input('../config/config_train.ini')
 #        files, groups = Input.get_input_ah()
 
 
