@@ -21,6 +21,7 @@ def get_input(config_file):
         # may need to addapt here later
         for data in dataLists:
             files.append( Input_Data(conf.get(data, 'PcapFile'), conf.get(data, 'Label'), session))
+            
         # EXIT_SUCCESS
         return files, groups
     

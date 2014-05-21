@@ -10,7 +10,6 @@ import Features
 import Orange_Export
 #import Annotation
 import Input
-
 import os.path
 import cPickle as pickle
 
@@ -220,7 +219,7 @@ if __name__ == "__main__":
 
     try:
         ## input files
-        files, groups = Input.get_input()
+        files, groups = Input.get_input('../config.ini')
 #        files, groups = Input.get_input_ah()
 
 

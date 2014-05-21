@@ -7,7 +7,7 @@
 # Referenced:  o_fss.htm
 
 import orange, orngFSS
-data = orange.ExampleTable("Features_1-annotated_[output.txt]-modified.tab")
+data = orange.ExampleTable("../../src/tests/data.tab")
 
 def report_relevance(data):
   m = orngFSS.attMeasure(data)
@@ -16,7 +16,7 @@ def report_relevance(data):
 
 print "Before feature subset selection (%d attributes):" % len(data.domain.attributes)
 report_relevance(data)
-data = orange.ExampleTable("Features_1-annotated_[output.txt]-modified.tab")
+data = orange.ExampleTable("../../src/tests/data.tab")
 
 marg = 0.01
 filter = orngFSS.FilterRelief(margin=marg)

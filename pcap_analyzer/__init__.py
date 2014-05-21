@@ -220,7 +220,7 @@ if __name__ == "__main__":
 
     try:
         ## input files
-        files, groups = Input.get_input()
+        files, groups = Input.get_input('../config.ini')
 #        files, groups = Input.get_input_ah()
 
 
@@ -232,6 +232,7 @@ if __name__ == "__main__":
 #        ## XXX non-parallel, to be able to use interactive plots
         results = list()
         for f in files:
+            
             results.append(parse_one_file(f))
         
         ## grouping the results

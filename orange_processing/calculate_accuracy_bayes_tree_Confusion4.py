@@ -71,8 +71,8 @@ def accuracy2(test_data, classifiers, classCount):
 ###selection = orange.MakeRandomIndices2(data, 0.5)
 ###train_data = data.select(selection, 0)
 ###test_data = data.select(selection, 1)
-filename_train = "output_Features_1-annotated_[output.txt]-modified_FeaturesJoined_1002-NoGesture-Wipe5_1-5-9-13.tab"
-filename_test = "output_Features_1-annotated_[output.txt]-modified_FeaturesJoined_1002-NoGesture-Wipe5_1-5-9-13.tab"
+filename_train = "../../src/tests/data.tab"
+filename_test = "../../src/tests/data.tab"
 train_data = orange.ExampleTable(filename_train)
 test_data = orange.ExampleTable(filename_test)
 #train_data = Orange.data.Table("WS70_Features_0.5-annotated_[directoryNamesIM]")
